@@ -35,9 +35,6 @@ const breadSchema = new mongoose.Schema({
 //pass schema structor as a model to create a table
 const Bread = mongoose.model("Bread", breadSchema);
 
-//Delete the collection
-//Bread.collection.drop();
-
 
 const createAndSaveBread = (breadObj) => {
     //oracle data row = mongodb document
@@ -79,6 +76,10 @@ const populate = (dataSet) => {
     }
 }
 
+//Delete the collection
+//Bread.collection.drop();
+
+//Create the collection with sample data
 //populate(dataSet);
 
 preview = { breadSchema };
