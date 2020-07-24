@@ -28,10 +28,22 @@ const generateAmount = (limit) => {
 //oracle schema = mongodb user		oracle table = mongodb schema
 const breadSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    stock: { type: Number },
-    sales: { type: Number },
+    stock: {
+        type: Number, default: () => {
+            return Math.round(Math.random() * 10000);
+        }
+    },
+    sales: {
+        type: Number, default: () => {
+            return Math.round(Math.random() * 10000);
+        }
+    },
     category: { type: String, default: "IDK" },
-    tag: { type: String },
+    tag: {
+        type: String, default: () => {
+            return breadTagList[Math.round(Math.random())];
+        }
+    },
     img: { type: String, default: "IDK" },
     thumb: { type: String, default: "IDK" },
     createdDate: { type: Date, default: Date.now }
@@ -54,9 +66,6 @@ const createAndSaveBread = (breadObj) => {
 };
 
 
-
-
-
 ////////////////////////////////// TEST ///////////////////////////////////
 const dataSet = [
     "Aish merahrah",
@@ -75,12 +84,7 @@ const dataSet = [
 
 const populate = (dataSet) => {
     for (let i = 0; i < dataSet.length; i++) {
-        createAndSaveBread({
-            name: dataSet[i],
-            stock: generateAmount(9999),
-            sales: generateAmount(9999),
-            tag: breadTagList[generateAmount(1)]
-        });
+        createAndSaveBread({ name: dataSet[i] });
     }
 }
 
