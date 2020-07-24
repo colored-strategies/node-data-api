@@ -10,23 +10,28 @@ const connect = mongoose.connect(process.env.MONGO_URI, {
     //findOneAndUpdate instead of Mongoose's findOneAndUpdate
     useFindAndModify: false
 });
-
-
+/*
+for (let i = 0; i < 10; i++)
+    console.log(Math.random() * 10);*/
 
 const breadTagList = ["New sale", "Done"];
 //console.log(breadTagList[Math.round(Math.random() * 1)]);
 
 
-//DOESN'T GENERATE NEW NUMBER FOR EACH CALL !!!!! CIRCLE BACK TO THIS
-const generateAmount = (limit) => Math.round(Math.random() * limit);
+//generates values to populate bread fields
+const generateAmount = (limit) => {
+    let value = Math.round(Math.random() * limit);
+    //console.log(value);
+    return value;
+}
 
 //oracle schema = mongodb user		oracle table = mongodb schema
 const breadSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    stock: { type: Number, default: generateAmount(9999) },
-    sales: { type: Number, default: generateAmount(9999) },
+    stock: { type: Number },
+    sales: { type: Number },
     category: { type: String, default: "IDK" },
-    tag: { type: String, default: breadTagList[generateAmount(1)] },
+    tag: { type: String },
     img: { type: String, default: "IDK" },
     thumb: { type: String, default: "IDK" },
     createdDate: { type: Date, default: Date.now }
@@ -70,9 +75,12 @@ const dataSet = [
 
 const populate = (dataSet) => {
     for (let i = 0; i < dataSet.length; i++) {
-        createAndSaveBread(
-            { name: dataSet[i] }
-        );
+        createAndSaveBread({
+            name: dataSet[i],
+            stock: generateAmount(9999),
+            sales: generateAmount(9999),
+            tag: breadTagList[generateAmount(1)]
+        });
     }
 }
 
