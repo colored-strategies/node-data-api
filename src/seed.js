@@ -53,60 +53,101 @@ const Bread = mongoose.model("Bread", breadSchema);
 //requires: bread names, other attributes are optional
 //single document creation
 const createAndSaveItem = (breadObj) => {
-    //oracle data row = mongodb document
-    const document = new Bread(breadObj);
-    //oracle insert = mongodb save + some extra actions
-    document.save(function (error, data) {
-        if (error) return console.log("Something went wrong", error.name);
-        else {
-            console.log(`Nicely saved ${data.name}, at ${new Date(Date.now())}`);
-        }
-    });
+    return new Promise((resolve, reject) => {
+        //oracle data row = mongodb document
+        const document = new Bread(breadObj);
+        //oracle insert = mongodb save + some extra actions
+        document.save((error, data) => {
+            if (error) {
+                console.log("Something went wrong", error.name);
+                reject(error);
+            }
+            else {
+                console.log(`Nicely saved ${data.name}, at ${new Date(Date.now())}`);
+                resolve(data);
+            }
+        });
+    })
 };
 
 //multiple document creation
-const createManyItems = function (arrayOfBread) {
-    Bread.create(arrayOfBread, function (error, data) {
-        if (error) return console.log("Something went wrong", error.name);
-        else
-            return console.log(`Nicely saved ${data.length} types of bread, at ${new Date(Date.now())}`);
-    });
+const createManyItems = (arrayOfBread) => {
+    return new Promise((resolve, reject) => {
+        Bread.create(arrayOfBread, (error, data) => {
+            if (error) {
+                console.log("Something went wrong", error.name);
+                reject(error);
+            }
+            else {
+                console.log(`Nicely saved ${data.length} types of bread, at ${new Date(Date.now())}`);
+                resolve(data);
+            }
+        });
+    })
 };
 
 //example query: {name:Lavash}
 //return statements may be altered
-const findItem = function (query) {
-    Bread.find(query, function (error, data) {
-        if (error) return console.log("Something went wrong", error.name);
-        else {
-            console.log(`${data.length} bread/s exist.`);
-            return data;
-        }
-    });
+const findItem = (query) => {
+    return new Promise((resolve, reject) => {
+        Bread.find(query, (error, data) => {
+            if (error) {
+                console.log("Something went wrong", error.name);
+                reject(error);
+            }
+            else {
+                console.log(`${data.length} bread/s exist.`);
+                resolve(data);
+            }
+        });
+    })
 };
 
 //search with given query(where statement) then do the given update (set statement)
-const findAndUpdate = function (query, update) {
-    const options = { new: true };
-    Bread.findOneAndUpdate(query, update, options, function (error, data) {
-        if (error) return console.log("Something went wrong", error.name);
-        else return console.log(`Updated bread as follows: ${data}`);
-    });
+const findAndUpdate = (query, update) => {
+    return new Promise((resolve, reject) => {
+        const options = { new: true };
+        Bread.findOneAndUpdate(query, update, options, (error, data) => {
+            if (error) {
+                console.log("Something went wrong", error.name);
+                reject(error);
+            }
+            else {
+                console.log(`Updated bread as follows: ${data}`);
+                resolve(data);
+            }
+        });
+    })
 };
 
-const removeOneItem = function (query, done) {
-    Bread.findOneAndRemove(query, function (error, data) {
-        if (error) return console.log("Something went wrong", error.name);
-        else return console.log(`Item is removed!`);
-    });
+const removeOneItem = (query, done) => {
+    return new Promise((resolve, reject) => {
+        Bread.findOneAndRemove(query, (error, data) => {
+            if (error) {
+                console.log("Something went wrong", error.name);
+                reject(error);
+            } else {
+                console.log(`Item is removed!`);
+                resolve(data);
+            }
+        });
+    })
 };
 
 //return statements may be altered
-const removeAllMatches = function (query) {
-    Bread.deleteMany(query, function (error, data) {
-        if (error) return console.log("Something went wrong", error.name);
-        else return console.log(`${data.deletedCount} item/s is/are removed!`);
-    });
+const removeAllMatches = (query) => {
+    return new Promise((resolve, reject) => {
+        Bread.deleteMany(query, (error, data) => {
+            if (error) {
+                console.log("Something went wrong", error.name);
+                reject(error);
+            }
+            else {
+                console.log(`${data.deletedCount} item/s is/are removed!`);
+                resolve(data);
+            }
+        });
+    })
 };
 
 
@@ -151,6 +192,7 @@ const populateMultiple = (dataSet) => {
 preview = "Are you ready to dive in?!";
 
 exports.preview = preview;
+exports.Bread = Bread;
 exports.createAndSaveBread = createAndSaveItem;
 exports.createManyBreads = createManyItems;
 exports.findBread = findItem;
