@@ -4,7 +4,7 @@ const app = express();
 //to read .env files
 require("dotenv").config();
 
-const seed = require("./seed").preview;
+const seed = require("./seed");
 
 app.use(logger);
 //app.use(seed);
@@ -14,8 +14,18 @@ app.get("/", function (req, res) {
 });
 
 app.get("/api/seed", function (req, res) {
-    res.send(seed);
+    res.send(seed.preview);
 });
+
+//CREATE PROPER ROUTING FOR THE DB FUNCTIONS
+/*
+seed.createAndSaveBread
+seed.createManyBreads
+seed.findBread
+seed.findAndUpdateBread
+seed.removeOneBread
+seed.removeAllMatchedBreadss
+*/
 
 function logger(req, res, next) {
     console.log(req.method, req.path, "-", req.ip);
