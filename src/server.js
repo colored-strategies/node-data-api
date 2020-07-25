@@ -33,8 +33,13 @@ app.get("/api/data/findBread", async (req, res) => {
     res.json(data);
 })
 
-app.get("/api/data/:draw/:startIndex/:length", async (req, res) => {
-    res.json(await datatables.output(req.params));
+app.get("/api/data", async (req, res) => {
+    let params = {
+        draw: req.query.draw,
+        startIndex: req.query.draw,
+        length: req.query.length,
+    }
+    res.json(await datatables.output(params));
 })
 
 function logger(req, res, next) {

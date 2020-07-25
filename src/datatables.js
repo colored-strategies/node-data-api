@@ -7,6 +7,8 @@ const isEmpty = (field) => {
     return field ? field : "";
 }
 
+//with DT but without DT fields
+/*
 const dataArray = (dataObject) => {
     let arr = [];
     for (let i = 0; i < dataObject.length; i++) {
@@ -25,7 +27,28 @@ const dataArray = (dataObject) => {
         });
     }
     return arr;
+}*/
+
+const dataArray = (dataObject) => {
+    let arr = [];
+    for (let i = 0; i < dataObject.length; i++) {
+        const obj = dataObject[i];
+        arr.push([
+            obj.Name,
+            isEmpty(obj.Description),
+            isEmpty(obj.Sales),
+            isEmpty(obj.Stock),
+            isEmpty(obj.Category),
+            isEmpty(obj.Tag),
+            isEmpty(obj.Check),
+            isEmpty(obj.ImageP),
+            isEmpty(obj.Thumb),
+            isEmpty(obj.Date)
+        ]);
+    }
+    return arr;
 }
+
 
 const dataStartFilter = (data, startIndex) => {
     let size = data.length;
