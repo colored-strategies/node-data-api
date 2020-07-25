@@ -11,6 +11,4 @@ Ex: "mongodb+srv://**username**:**pass**@mycluster-sqpm0.mongodb.net/**DBNAME**?
 API serves over GET methods. Additional routing may be added as desired.
 
 **/api/data/findBread** **-->** return all the breads   
-**/api/data/***:draw/:startIndex/:length* **-->** return with given limits    
-
-
+**/api/data/***?draw=3&start=1&length=1* **-->** return with given limits    
