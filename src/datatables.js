@@ -2,20 +2,27 @@ const seed = require("./seed");
 
 const query = {};
 
+//if the field is empty return empty string
+const isEmpty = (field) => {
+    return field ? field : "";
+}
+
 const dataArray = (dataObject) => {
     let arr = [];
     for (let i = 0; i < dataObject.length; i++) {
         const obj = dataObject[i];
-        //HANDLE EMPTY FIELD CASES
-        arr.push([
-            obj.name,
-            obj.stock,
-            obj.sales,
-            obj.category,
-            obj.tag,
-            obj.img,
-            obj.thumb
-        ]);
+        arr.push({
+            "Name": obj.Name,
+            "Description": isEmpty(obj.Description),
+            "Sales": isEmpty(obj.Sales),
+            "Stock": isEmpty(obj.Stock),
+            "Category": isEmpty(obj.Category),
+            "Tag": isEmpty(obj.Tag),
+            "Check": isEmpty(obj.Check),
+            "ImageP": isEmpty(obj.ImageP),
+            "Thumb": isEmpty(obj.Thumb),
+            "Date": isEmpty(obj.Date)
+        });
     }
     return arr;
 }

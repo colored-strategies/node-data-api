@@ -12,7 +12,7 @@ const connect = mongoose.connect(process.env.MONGO_URI, {
 });
 
 //oracle schema = mongodb user		oracle table = mongodb schema
-const breadSchema = new mongoose.Schema({
+/*const breadSchema = new mongoose.Schema({
     name: { type: String, required: true },
     stock: { type: Number },
     sales: { type: Number },
@@ -20,6 +20,20 @@ const breadSchema = new mongoose.Schema({
     tag: { type: String },
     img: { type: String },
     thumb: { type: String },
+    createdDate: { type: Date, default: Date.now }
+});*/
+
+const breadSchema = new mongoose.Schema({
+    Name: { type: String, required: true },
+    Description: { type: String },
+    Sales: { type: Number },
+    Stock: { type: Number },
+    Category: { type: String },
+    Tag: { type: String },
+    Check: { type: String },
+    ImageP: { type: String },
+    Thumb: { type: String },
+    Date: { type: String },
     createdDate: { type: Date, default: Date.now }
 });
 
@@ -178,9 +192,13 @@ const populateSingle = (dataSet) => {
     }
 }
 
+const mustData = require("./server.json");
+
 //let the mongoose handle bundle item creation
 const populateMultiple = (dataSet) => {
-    createManyItems(dataSet);
+    //createManyItems(dataSet);
+    //console.log([dataSet.data]);
+    createManyItems(dataSet.data);
 }
 
 //Delete the collection
@@ -192,6 +210,7 @@ const populateMultiple = (dataSet) => {
 //Create the collection with sample data
 //populateSingle(dataSet);
 //populateMultiple(dataSet);
+//populateMultiple(mustData);
 
 preview = "Are you ready to dive in?!";
 
