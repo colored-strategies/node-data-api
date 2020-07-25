@@ -10,40 +10,16 @@ const connect = mongoose.connect(process.env.MONGO_URI, {
     //findOneAndUpdate instead of Mongoose's findOneAndUpdate
     useFindAndModify: false
 });
-/*
-for (let i = 0; i < 10; i++)
-    console.log(Math.random() * 10);*/
-
-const breadTagList = ["New sale", "Done"];
-
-//generates values to populate bread fields
-const generateAmount = (limit) => {
-    let value = Math.round(Math.random() * limit);
-    //console.log(value);
-    return value;
-}
 
 //oracle schema = mongodb user		oracle table = mongodb schema
 const breadSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    stock: {
-        type: Number, default: () => {
-            return Math.round(Math.random() * 10000);
-        }
-    },
-    sales: {
-        type: Number, default: () => {
-            return Math.round(Math.random() * 10000);
-        }
-    },
-    category: { type: String, default: "IDK" },
-    tag: {
-        type: String, default: () => {
-            return breadTagList[Math.round(Math.random())];
-        }
-    },
-    img: { type: String, default: "IDK" },
-    thumb: { type: String, default: "IDK" },
+    stock: { type: Number },
+    sales: { type: Number },
+    category: { type: String },
+    tag: { type: String },
+    img: { type: String },
+    thumb: { type: String },
     createdDate: { type: Date, default: Date.now }
 });
 
@@ -155,7 +131,7 @@ const removeAllMatches = (query) => {
 
 
 ////////////////////////////////// TEST ///////////////////////////////////
-const dataSet = [
+let dataSet = [
     { name: "Aish merahrah" },
     { name: "Baba" },
     { name: "Bagel" },
@@ -169,6 +145,31 @@ const dataSet = [
     { name: "Kamir" },
     { name: "Lavash " }
 ];
+
+const breadTagList = ["New sale", "Done"];
+
+//generates values to populate bread fields
+const generateAmount = (limit) => {
+    let value = Math.round(Math.random() * limit);
+    //console.log(value);
+    return value;
+}
+
+const setSampleData = (dataSet) => {
+    for (let i = 0; i < dataSet.length; i++) {
+        let data = dataSet[i];
+        data = {
+            ...data,
+            stock: generateAmount(10000),
+            sales: generateAmount(10000),
+            tag: breadTagList[generateAmount(1)],
+            category: "IDK",
+            img: "IDK",
+            thumb: "IDK"
+        }
+        dataSet[i] = data;
+    }
+}
 
 //generate data with single item at each step
 const populateSingle = (dataSet) => {
@@ -184,6 +185,9 @@ const populateMultiple = (dataSet) => {
 
 //Delete the collection
 //Bread.collection.drop();
+
+//Set up the sample data
+//setSampleData(dataSet);
 
 //Create the collection with sample data
 //populateSingle(dataSet);
