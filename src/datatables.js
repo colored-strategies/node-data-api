@@ -33,7 +33,9 @@ const dataLengthFilter = (data, length) => {
 };
 
 const output = (params) => {
-    const [draw, startIndex, length] = params;
+    const draw = params.draw;
+    const startIndex = params.startIndex;
+    const length = params.length;
 
     return seed.findBread(query).then(dbData => {
         //let data = dataArray(dbData.slice(0, 1));
