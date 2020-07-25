@@ -23,22 +23,7 @@ const connect = mongoose.connect(process.env.MONGO_URI, {
     createdDate: { type: Date, default: Date.now }
 });*/
 
-const breadSchema = new mongoose.Schema({
-    Name: { type: String, required: true },
-    Description: { type: String },
-    Sales: { type: Number },
-    Stock: { type: Number },
-    Category: { type: String },
-    Tag: { type: String },
-    Check: { type: String },
-    ImageP: { type: String },
-    Thumb: { type: String },
-    Date: { type: String },
-    createdDate: { type: Date, default: Date.now }
-});
 
-//pass schema structor as a model to create a table
-const Bread = mongoose.model("Bread", breadSchema);
 
 //requires: bread names, other attributes are optional
 //single document creation
@@ -144,53 +129,6 @@ const removeAllMatches = (query) => {
 
 
 
-////////////////////////////////// TEST ///////////////////////////////////
-let dataSet = [
-    { name: "Aish merahrah" },
-    { name: "Baba" },
-    { name: "Bagel" },
-    { name: "Bammy" },
-    { name: "Chapati" },
-    { name: "Ciabatta" },
-    { name: "Dorayaki" },
-    { name: "Farl" },
-    { name: "Hardtack" },
-    { name: "Injera" },
-    { name: "Kamir" },
-    { name: "Lavash " }
-];
-
-const breadTagList = ["New sale", "Done"];
-
-//generates values to populate bread fields
-const generateAmount = (limit) => {
-    let value = Math.round(Math.random() * limit);
-    //console.log(value);
-    return value;
-}
-
-const setSampleData = (dataSet) => {
-    for (let i = 0; i < dataSet.length; i++) {
-        let data = dataSet[i];
-        data = {
-            ...data,
-            stock: generateAmount(10000),
-            sales: generateAmount(10000),
-            tag: breadTagList[generateAmount(1)],
-            category: "IDK",
-            img: "IDK",
-            thumb: "IDK"
-        }
-        dataSet[i] = data;
-    }
-}
-
-//generate data with single item at each step
-const populateSingle = (dataSet) => {
-    for (let i = 0; i < dataSet.length; i++) {
-        createAndSaveItem({ name: dataSet[i].name });
-    }
-}
 
 const mustData = require("./server.json");
 
