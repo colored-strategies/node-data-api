@@ -36,10 +36,10 @@ const output = (params) => {
     const [draw, startIndex, length] = params;
 
     return seed.findBread(query).then(dbData => {
-        let data = dataStartFilter(dbData, startIndex).then(remaining,)
-
+        //let data = dataArray(dbData.slice(0, 1));
+        let data = dataStartFilter(dbData, startIndex);
+        data = dataLengthFilter(data, length)
         data = dataArray(data);
-        //const data = dataArray(dbData.slice(0, 1));
         let results = {
             draw,
             //Total records, before filtering
