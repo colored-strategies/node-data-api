@@ -67,7 +67,7 @@ const output = (params) => {
     const startIndex = params.startIndex;
     const length = params.length;
 
-    return seed.findBread(query).then(dbData => {
+    return seed.findProduct(query).then(dbData => {
         //let data = dataArray(dbData.slice(0, 1));
         let data = dataStartFilter(dbData, startIndex);
         data = dataLengthFilter(data, length)

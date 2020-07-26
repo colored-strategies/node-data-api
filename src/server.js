@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("product/find", async (req, res) => {
-    const data = await productController.findBread({});
+    const data = await productController.findProduct({});
     res.json(data);
 })
 
