@@ -1,12 +1,12 @@
 
-const Bread = require("./product.model");
+const Product = require("./product.model");
 
-//requires: bread names, other attributes are optional
+//requires: product names, other attributes are optional
 //single document creation
-const createAndSaveItem = (breadObj) => {
+const createAndSaveItem = (product) => {
     return new Promise((resolve, reject) => {
         //oracle data row = mongodb document
-        const document = new Bread(breadObj);
+        const document = new Product(product);
         //oracle insert = mongodb save + some extra actions
         document.save((error, data) => {
             if (error) {
@@ -22,15 +22,15 @@ const createAndSaveItem = (breadObj) => {
 };
 
 //multiple document creation
-const createManyItems = (arrayOfBread) => {
+const createManyItems = (arrayOfProduct) => {
     return new Promise((resolve, reject) => {
-        Bread.create(arrayOfBread, (error, data) => {
+        Product.create(arrayOfProduct, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
             }
             else {
-                console.log(`Nicely saved ${data.length} types of bread, at ${new Date(Date.now())}`);
+                console.log(`Nicely saved ${data.length} types of Product, at ${new Date(Date.now())}`);
                 resolve(data);
             }
         });
@@ -41,13 +41,13 @@ const createManyItems = (arrayOfBread) => {
 //return statements may be altered
 const findItem = (query) => {
     return new Promise((resolve, reject) => {
-        Bread.find(query, (error, data) => {
+        Product.find(query, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
             }
             else {
-                console.log(`${data.length} bread/s exist.`);
+                console.log(`${data.length} Product/s exist.`);
                 resolve(data);
             }
         });
@@ -58,13 +58,13 @@ const findItem = (query) => {
 const findAndUpdate = (query, update) => {
     return new Promise((resolve, reject) => {
         const options = { new: true };
-        Bread.findOneAndUpdate(query, update, options, (error, data) => {
+        Product.findOneAndUpdate(query, update, options, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
             }
             else {
-                console.log(`Updated bread as follows: ${data}`);
+                console.log(`Updated Product as follows: ${data}`);
                 resolve(data);
             }
         });
@@ -73,7 +73,7 @@ const findAndUpdate = (query, update) => {
 
 const removeOneItem = (query, done) => {
     return new Promise((resolve, reject) => {
-        Bread.findOneAndRemove(query, (error, data) => {
+        Product.findOneAndRemove(query, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
@@ -88,7 +88,7 @@ const removeOneItem = (query, done) => {
 //return statements may be altered
 const removeAllMatches = (query) => {
     return new Promise((resolve, reject) => {
-        Bread.deleteMany(query, (error, data) => {
+        Product.deleteMany(query, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
@@ -102,12 +102,12 @@ const removeAllMatches = (query) => {
 };
 
 const controller = {
-    createAndSaveBread: createAndSaveItem,
-    createManyBreads: createManyItems,
-    findBread: findItem,
-    findAndUpdateBread: findAndUpdate,
-    removeOneBread: removeOneItem,
-    removeAllMatchedBreads: removeAllMatches,
+    createAndSaveProduct: createAndSaveItem,
+    createManyProducts: createManyItems,
+    findProduct: findItem,
+    findAndUpdateProduct: findAndUpdate,
+    removeOneProduct: removeOneItem,
+    removeAllMatchedProducts: removeAllMatches,
 };
 
 module.exports = controller;

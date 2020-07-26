@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const logger = require("./utils/logger");
-const breadController = require("./product/product.controller");
+const productController = require("./product/product.controller");
 
 
 
@@ -33,24 +33,14 @@ app.get("/", (req, res) => {
     res.send("Welcome my friend...");
 });
 
-app.get("/api/bread/find", async (req, res) => {
-    const data = await breadController.findBread({});
+app.get("product/find", async (req, res) => {
+    const data = await productController.findBread({});
     res.json(data);
 })
 
 // app.get("/api/seed", (req, res) => {
 //     res.send(seed.preview);
 // });
-
-// //CREATE PROPER ROUTING FOR THE DB FUNCTIONS
-// /*
-// seed.createAndSaveBread
-// seed.createManyBreads
-// seed.findBread                  -GET
-// seed.findAndUpdateBread
-// seed.removeOneBread
-// seed.removeAllMatchedBreadss
-// */
 
 
 
