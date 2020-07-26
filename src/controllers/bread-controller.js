@@ -1,5 +1,5 @@
 
-const mongoose = require("mongoose");
+const Bread = require("../models/bread-model");
 
 //requires: bread names, other attributes are optional
 //single document creation
@@ -101,9 +101,13 @@ const removeAllMatches = (query) => {
     })
 };
 
-exports.createAndSaveBread = createAndSaveItem;
-exports.createManyBreads = createManyItems;
-exports.findBread = findItem;
-exports.findAndUpdateBread = findAndUpdate;
-exports.removeOneBread = removeOneItem;
-exports.removeAllMatchedBreads = removeAllMatches;
+const controller = {
+    createAndSaveBread: createAndSaveItem,
+    createManyBreads: createManyItems,
+    findBread: findItem,
+    findAndUpdateBread: findAndUpdate,
+    removeOneBread: removeOneItem,
+    removeAllMatchedBreads: removeAllMatches,
+};
+
+module.exports = controller;

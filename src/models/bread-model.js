@@ -14,7 +14,4 @@ const breadSchema = new mongoose.Schema({
     createdDate: { type: Date, default: Date.now }
 });
 
-//pass schema structor as a model to create a table
-const Bread = mongoose.model("Bread", breadSchema);
-
-exports.Bread = Bread;
+module.exports = mongoose.model("Bread", breadSchema);
