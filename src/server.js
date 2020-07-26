@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const logger = require("./utils/logger");
-const breadController = require("./controllers/bread-controller");
+const breadController = require("./product/product.controller");
 
 
 

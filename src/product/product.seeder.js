@@ -1,4 +1,4 @@
-import model from "../models/bread-model";
+import model from "./product.model";
 import controller from ""
 const data = [
     {

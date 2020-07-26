@@ -1,5 +1,5 @@
 
-const Bread = require("../models/bread-model");
+const Bread = require("./product.model");
 
 //requires: bread names, other attributes are optional
 //single document creation
