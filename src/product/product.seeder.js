@@ -1,5 +1,5 @@
-import model from "./product.model";
-import controller from ""
+const model = require("./product.model");
+const controller = require("./product.controller");
 const data = [
     {
         Name: "Anadama",

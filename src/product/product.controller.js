@@ -1,12 +1,12 @@
 
-const Product = require("./product.model");
+const model = require("./product.model");
 
-//requires: product names, other attributes are optional
+//requires: item names, other attributes are optional
 //single document creation
-const createAndSaveItem = (product) => {
+const createAndSaveItem = (item) => {
     return new Promise((resolve, reject) => {
         //oracle data row = mongodb document
-        const document = new Product(product);
+        const document = new model(item);
         //oracle insert = mongodb save + some extra actions
         document.save((error, data) => {
             if (error) {
@@ -22,15 +22,15 @@ const createAndSaveItem = (product) => {
 };
 
 //multiple document creation
-const createManyItems = (arrayOfProduct) => {
+const createManyItems = (arrayOfmodel) => {
     return new Promise((resolve, reject) => {
-        Product.create(arrayOfProduct, (error, data) => {
+        model.create(arrayOfmodel, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
             }
             else {
-                console.log(`Nicely saved ${data.length} types of Product, at ${new Date(Date.now())}`);
+                console.log(`Nicely saved ${data.length} types of model, at ${new Date(Date.now())}`);
                 resolve(data);
             }
         });
@@ -41,13 +41,13 @@ const createManyItems = (arrayOfProduct) => {
 //return statements may be altered
 const findItem = (query) => {
     return new Promise((resolve, reject) => {
-        Product.find(query, (error, data) => {
+        model.find(query, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
             }
             else {
-                console.log(`${data.length} Product/s exist.`);
+                console.log(`${data.length} model/s exist.`);
                 resolve(data);
             }
         });
@@ -58,13 +58,13 @@ const findItem = (query) => {
 const findAndUpdate = (query, update) => {
     return new Promise((resolve, reject) => {
         const options = { new: true };
-        Product.findOneAndUpdate(query, update, options, (error, data) => {
+        model.findOneAndUpdate(query, update, options, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
             }
             else {
-                console.log(`Updated Product as follows: ${data}`);
+                console.log(`Updated model as follows: ${data}`);
                 resolve(data);
             }
         });
@@ -73,7 +73,7 @@ const findAndUpdate = (query, update) => {
 
 const removeOneItem = (query, done) => {
     return new Promise((resolve, reject) => {
-        Product.findOneAndRemove(query, (error, data) => {
+        model.findOneAndRemove(query, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
@@ -88,7 +88,7 @@ const removeOneItem = (query, done) => {
 //return statements may be altered
 const removeAllMatches = (query) => {
     return new Promise((resolve, reject) => {
-        Product.deleteMany(query, (error, data) => {
+        model.deleteMany(query, (error, data) => {
             if (error) {
                 console.log("Something went wrong", error.name);
                 reject(error);
@@ -102,12 +102,12 @@ const removeAllMatches = (query) => {
 };
 
 const controller = {
-    createAndSaveProduct: createAndSaveItem,
-    createManyProducts: createManyItems,
-    findProduct: findItem,
-    findAndUpdateProduct: findAndUpdate,
-    removeOneProduct: removeOneItem,
-    removeAllMatchedProducts: removeAllMatches,
+    createAndSavemodel: createAndSaveItem,
+    createManymodels: createManyItems,
+    findmodel: findItem,
+    findAndUpdatemodel: findAndUpdate,
+    removeOnemodel: removeOneItem,
+    removeAllMatchedmodels: removeAllMatches,
 };
 
 module.exports = controller;
