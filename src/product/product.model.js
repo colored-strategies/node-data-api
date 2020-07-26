@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const dataTables = require('mongoose-datatables')
 
-const productSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
     Name: { type: String, required: true },
     Description: { type: String },
     Sales: { type: Number },
@@ -14,4 +15,6 @@ const productSchema = new mongoose.Schema({
     createdDate: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("Product", productSchema);
+schema.plugin(dataTables);
+
+module.exports = mongoose.model("Product", schema);

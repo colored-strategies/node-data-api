@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser')
 
 //to read .env files
 require("dotenv").config();
@@ -7,6 +8,7 @@ require("dotenv").config();
 const logger = require("./utils/logger");
 const productController = require("./product/product.controller");
 
+mongoose.Promise = global.Promise
 
 
 
@@ -33,7 +35,20 @@ app.get("/", (req, res) => {
     res.send("Welcome my friend...");
 });
 
-app.get("product/find", async (req, res) => {
+app.get("datatables/product", async (req, res) => {
+    User.dataTables({
+        limit: req.body.length,
+        skip: req.body.start,
+        order: req.body.order,
+        columns: req.body.columns
+      }).then(function (table) {
+        res.json({
+          data: table.data,
+          recordsFiltered: table.total,
+          recordsTotal: table.total
+        });
+      });
+    
     const data = await productController.findProduct({});
     res.json(data);
 })
