@@ -93,7 +93,7 @@ bluebird@3.5.1:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
   integrity sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA==
 
-body-parser@1.19.0:
+body-parser@1.19.0, body-parser@^1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
   integrity sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
@@ -770,6 +770,11 @@ mongodb@3.5.9:
     safe-buffer "^5.1.2"
   optionalDependencies:
     saslprep "^1.0.0"
+
+mongoose-datatables@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/mongoose-datatables/-/mongoose-datatables-3.2.0.tgz#38206b0284be61616f6b1f7f8bea49d1415a08d5"
+  integrity sha512-7yKBloJGTmCSqbTv2l8QdaC2V55L79QOUBGDbYdvw8aRvQQp6lRv7Una2Dki8ZlBHnCUMG4paGPH9q0tUZga6A==
 
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
