@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const breadSchema = new mongoose.Schema({
     Name: { type: String, required: true },
     Description: { type: String },
@@ -14,3 +16,5 @@ const breadSchema = new mongoose.Schema({
 
 //pass schema structor as a model to create a table
 const Bread = mongoose.model("Bread", breadSchema);
+
+exports.Bread = Bread;
