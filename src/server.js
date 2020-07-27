@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const logger = require("./utils/logger");
 const productController = require("./product/product.controller");
+const productModel = require("./product/product.model");
 
 mongoose.Promise = global.Promise
 
@@ -14,6 +15,10 @@ mongoose.Promise = global.Promise
 
 const app = express();
 app.use(logger)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 
 const connect = mongoose.connect(process.env.MONGO_URI, {
@@ -35,13 +40,16 @@ app.get("/", (req, res) => {
     res.send("Welcome my friend...");
 });
 
-app.get("datatables/product", async (req, res) => {
-    User.dataTables({
-        limit: req.body.length,
-        skip: req.body.start,
-        order: req.body.order,
-        columns: req.body.columns
+app.get("/datatables/product", async (req, res) => {
+    
+    console.log(">>>>: req.aaaaaaaa", req.query)
+    productModel.dataTables({
+        limit: req.query.length,
+        skip: req.query.start,
+        order: req.query.order,
+        columns: req.query.columns
       }).then(function (table) {
+      console.log(">>>>: table", table)
         res.json({
           data: table.data,
           recordsFiltered: table.total,
@@ -49,8 +57,8 @@ app.get("datatables/product", async (req, res) => {
         });
       });
     
-    const data = await productController.findProduct({});
-    res.json(data);
+    // const data = await productController.findProduct({});
+    // res.json(data);
 })
 
 // app.get("/api/seed", (req, res) => {

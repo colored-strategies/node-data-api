@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const dataTables = require('mongoose-datatables')
+const dataTables = require('../utils/dataTablePlugin')
 
 const schema = new mongoose.Schema({
     Name: { type: String, required: true },
