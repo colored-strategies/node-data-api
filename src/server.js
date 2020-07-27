@@ -7,8 +7,8 @@ var cors = require('cors')
 require("dotenv").config();
 
 const logger = require("./utils/logger");
-const productController = require("./product/product.controller");
 const productModel = require("./product/product.model");
+const productSeeder = require("./product/product.seeder");
 
 mongoose.Promise = global.Promise
 
@@ -33,56 +33,58 @@ const connect = mongoose.connect(process.env.MONGO_URI, {
 });
 
 
-
-// const seed = require("./seed");
-// const datatables = require("./datatables");
-
-//app.use(seed);
-
 app.get("/", (req, res) => {
     res.send("Welcome my friend...");
 });
 
+//#region datatable/product
 app.get("/datatables/product", async (req, res) => {
-    
-    console.log(">>>>: req.aaaaaaaa", req.query)
-    productModel.dataTables({
-        limit: req.query.length,
-        skip: req.query.start,
-        order: req.query.order,
-        columns: req.query.columns
-      }).then(function (table,a,b,c) {
-      console.log(">>>>: table,a,b,c", table,a,b,c)
-        res.json({
-          data: table.data,
-          recordsFiltered: table.total,
-            recordsTotal: table.total
-        });
-      }).catch((error) => {
-          console.log("error.... ", error)
-      });
-    
-    // const data = await productController.findProduct({});
-    // res.json(data);
+    productForDatatable(req.query, res);
+});
+
+app.post("/datatables/product", async (req, res) => {
+    productForDatatable(req.body, res);
 })
 
-// app.get("/api/seed", (req, res) => {
-//     res.send(seed.preview);
-// });
+productForDatatable = async (params, res) => {
+    productModel.dataTables({
+        limit: params.length,
+        skip: params.start,
+        order: params.order,
+        columns: params.columns,
+    })
+        .then(function (table) {
 
+            res.json({
+                data: table.data.map(x => {
+                    return {
+                        ...x._doc,
+                        ImageP: `${process.env.API_URL}/_buraya_static_altindaki_path_gelecek/${x._doc.ImageP}`,
+                        Thumb: `${process.env.API_URL}/_buraya_static_altindaki_path_gelecek/${x._doc.Thumb}`
+                    }
+                }),
+                recordsFiltered: table.total,
+                recordsTotal: table.total
+            })
+        }).catch((error) => {
+            console.log("error.... ", error)
+        });
+}
+//#endregion datatalbe/product
 
+//#region seeder 
 
-// app.get("/api/data", async (req, res) => {
-//     let params = {
-//         draw: req.query.draw,
-//         startIndex: req.query.draw,
-//         length: req.query.length,
-//     }
-//     res.json(await datatables.output(params));
-// })
+//! TODO : seeder pathlerini bu dosyanın dışına taşı
+app.get("/seeder/product", async (req, res) => {
+    productSeeder.seed();
+    res.send("its all good man")
+})
 
+//#endregion seeder
 
 
 const listener = app.listen(process.env.PORT || 3000, () => {
     console.log("Your app is listening on port " + listener.address().port);
 });
+
+

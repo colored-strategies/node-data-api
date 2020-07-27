@@ -22,20 +22,7 @@ const createAndSaveItem = (item) => {
 };
 
 //multiple document creation
-const createManyItems = (arrayOfmodel) => {
-    return new Promise((resolve, reject) => {
-        model.create(arrayOfmodel, (error, data) => {
-            if (error) {
-                console.log("Something went wrong", error.name);
-                reject(error);
-            }
-            else {
-                console.log(`Nicely saved ${data.length} types of model, at ${new Date(Date.now())}`);
-                resolve(data);
-            }
-        });
-    })
-};
+
 
 //example query: {name:Lavash}
 //return statements may be altered
@@ -103,8 +90,7 @@ const removeAllMatches = (query) => {
 
 const controller = {
     createAndSavemodel: createAndSaveItem,
-    createManymodels: createManyItems,
-    findmodel: findItem,
+    findItem: findItem,
     findAndUpdatemodel: findAndUpdate,
     removeOnemodel: removeOneItem,
     removeAllMatchedmodels: removeAllMatches,
