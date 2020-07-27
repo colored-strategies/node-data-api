@@ -56,6 +56,7 @@ productForDatatable = async (params, res) => {
         .then(function (table) {
 
             res.json({
+                draw: params.draw,
                 data: table.data.map(x => {
                     return {
                         ...x._doc,
