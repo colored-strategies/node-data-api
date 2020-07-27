@@ -17,7 +17,7 @@ mongoose.Promise = global.Promise
 const app = express();
 app.use(cors())
 app.use(logger)
-
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -59,8 +59,8 @@ productForDatatable = async (params, res) => {
                 data: table.data.map(x => {
                     return {
                         ...x._doc,
-                        ImageP: `${process.env.API_URL}/_buraya_static_altindaki_path_gelecek/${x._doc.ImageP}`,
-                        Thumb: `${process.env.API_URL}/_buraya_static_altindaki_path_gelecek/${x._doc.Thumb}`
+                        ImageP: `${process.env.API_URL}${process.env.PRODUCT_IMG_ROOT}${x._doc.ImageP}`,
+                        Thumb: `${process.env.API_URL}${process.env.PRODUCT_IMG_ROOT}${x._doc.Thumb}`
                     }
                 }),
                 recordsFiltered: table.total,
