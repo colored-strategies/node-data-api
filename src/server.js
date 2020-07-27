@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser')
+var cors = require('cors')
 
 //to read .env files
 require("dotenv").config();
@@ -14,10 +15,12 @@ mongoose.Promise = global.Promise
 
 
 const app = express();
+app.use(cors())
 app.use(logger)
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 }));
 
 
@@ -48,13 +51,15 @@ app.get("/datatables/product", async (req, res) => {
         skip: req.query.start,
         order: req.query.order,
         columns: req.query.columns
-      }).then(function (table) {
-      console.log(">>>>: table", table)
+      }).then(function (table,a,b,c) {
+      console.log(">>>>: table,a,b,c", table,a,b,c)
         res.json({
           data: table.data,
           recordsFiltered: table.total,
-          recordsTotal: table.total
+            recordsTotal: table.total
         });
+      }).catch((error) => {
+          console.log("error.... ", error)
       });
     
     // const data = await productController.findProduct({});
