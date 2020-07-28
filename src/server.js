@@ -93,7 +93,7 @@ app.get("/seeder/product", async (req, res) => {
 //#endregion seeder
 
 
-const listener = app.listen(process.env.PORT || 3003, () => {
+const listener = app.listen(process.env.PORT || 3000, () => {
     console.log("Your app is listening on port " + listener.address().port);
 });
 
