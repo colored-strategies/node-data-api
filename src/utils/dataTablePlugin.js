@@ -1,6 +1,6 @@
 module.exports = exports = dataTablesPlugin
 
-function dataTablesPlugin (schema, options) {
+function dataTablesPlugin(schema, options) {
   options = options || {}
   var totalKey = options.totalKey || 'total'
   var dataKey = options.dataKey || 'data'
@@ -12,7 +12,7 @@ function dataTablesPlugin (schema, options) {
       params = {}
     }
 
-    callback = callback || function () {}
+    callback = callback || function () { }
 
     var thisSchema = this
     var limit = parseInt(params.limit, 10)
@@ -33,11 +33,11 @@ function dataTablesPlugin (schema, options) {
 
       if (search.fields.length == 1) {
         find[search.fields[0]] = searchQuery
-      } else if(search.fields.length > 1) {
+      } else if (search.fields.length > 1) {
         if (!find.$or) {
           find.$or = []
         }
-        search.fields.forEach(function (el){
+        search.fields.forEach(function (el) {
           var obj = {}
           obj[el] = searchQuery
           find.$or.push(obj)
@@ -48,7 +48,7 @@ function dataTablesPlugin (schema, options) {
     if (order && columns) {
       const sortByOrder = order.reduce((memo, ordr) => {
         const column = columns[ordr.column];
-        memo[column.data] = ordr.dir === 'asc' ? 1 :  -1;
+        memo[column.data] = ordr.dir === 'asc' ? 1 : -1;
         return memo;
       }, {});
 
@@ -74,7 +74,7 @@ function dataTablesPlugin (schema, options) {
       if (formatter && !(
         typeof formatter === 'function' ||
         (typeof formatter === 'string' && formatters[formatter])
-      )){
+      )) {
         return reject(new Error('Invalid formatter'))
       }
 

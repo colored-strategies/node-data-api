@@ -52,6 +52,15 @@ productForDatatable = async (params, res) => {
         skip: params.start,
         order: params.order,
         columns: params.columns,
+        search: {
+            ...params.search,
+            fields: [
+                "Name",
+                "Description",
+                "Category",
+                "Tag"
+            ]
+        }
     })
         .then(function (table) {
 
@@ -84,7 +93,7 @@ app.get("/seeder/product", async (req, res) => {
 //#endregion seeder
 
 
-const listener = app.listen(process.env.PORT || 3000, () => {
+const listener = app.listen(process.env.PORT || 3003, () => {
     console.log("Your app is listening on port " + listener.address().port);
 });
 
