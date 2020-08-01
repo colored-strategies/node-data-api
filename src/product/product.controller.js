@@ -37,8 +37,8 @@ module.exports = {
     // Get products w.r.t id from mongodb
     // GET /api/products/:id
     get: async (req, res) => {
-        let user = await Model.findById(req.params.id)
-        res.send(user);
+        let product = await Model.findById(req.params.id)
+        res.send(product);
     },
 
 
@@ -54,16 +54,16 @@ module.exports = {
             }
         );
 
-        let user = await newModel.save()
-        res.send({ message: 'Model created successfully!', data: user });
+        let product = await newModel.save()
+        res.send({ message: 'Model created successfully!', data: product });
     },
 
 
     // Update Model w.r.t id from mongodb
     // PUT /api/products/update/:id
     update: async (req, res) => {
-        let user = await Model.findByIdAndUpdate(req.params.id, { $set: req.body })
-        res.send({ message: 'Model updated successfully!', data: user });
+        let product = await Model.findByIdAndUpdate(req.params.id, { $set: req.body })
+        res.send({ message: 'Model updated successfully!', data: product });
     },
 
 
