@@ -1,99 +1,77 @@
 
-const model = require("./product.model");
+const Model = require("./product.model");
 
-//requires: item names, other attributes are optional
-//single document creation
-const createAndSaveItem = (item) => {
-    return new Promise((resolve, reject) => {
-        //oracle data row = mongodb document
-        const document = new model(item);
-        //oracle insert = mongodb save + some extra actions
-        document.save((error, data) => {
-            if (error) {
-                console.log("Something went wrong", error.name);
-                reject(error);
-            }
-            else {
-                console.log(`Nicely saved ${data.name}, at ${new Date(Date.now())}`);
-                resolve(data);
-            }
+
+module.exports = {
+
+    getAllForDatatable: async (req, res) => {
+        Model.dataTables({
+            limit: req.query.length,
+            skip: req.query.start,
+            order: req.query.order,
+            columns: req.query.columns,
+            search: {
+                ...req.query.search,
+                fields: ["Name", "Description", "Category", "Tag"],
+            },
+        }).then(function (table) {
+            res.json({
+                draw: req.query.draw,
+                data: table.data,
+                recordsFiltered: table.total,
+                recordsTotal: table.total,
+            });
+        }).catch((error) => {
+            console.log("error.... ", error);
         });
-    })
+    },
+
+    // Get all users from mongodb
+    // GET /api/users
+    getAll: async (req, res) => {
+        let users = await Model.find({})
+        res.send(users)
+    },
+
+
+    // Get users w.r.t id from mongodb
+    // GET /api/users/:id
+    get: async (req, res) => {
+        let user = await Model.findById(req.params.id)
+        res.send(user);
+    },
+
+
+    // Create new Model in mongodb
+    // POST /api/users/create
+    create: async (req, res) => {
+        let newModel = new Model(
+            {
+                name: req.body.name,
+                email: req.body.email,
+                gender: req.body.gender,
+                active: true
+            }
+        );
+
+        let user = await newModel.save()
+        res.send({ message: 'Model created successfully!', data: user });
+    },
+
+
+    // Update Model w.r.t id from mongodb
+    // PUT /api/users/update/:id
+    update: async (req, res) => {
+        let user = await Model.findByIdAndUpdate(req.params.id, { $set: req.body })
+        res.send({ message: 'Model updated successfully!', data: user });
+    },
+
+
+    // Delete Model w.r.t id from mongodb
+    // DELETE /api/users/delete/:id
+    delete: async (req, res) => {
+        await Model.findByIdAndRemove(req.params.id)
+        res.send('Model deleted successfully!');
+    },
+
 };
-
-//multiple document creation
-
-
-//example query: {name:Lavash}
-//return statements may be altered
-const findItem = (query) => {
-    return new Promise((resolve, reject) => {
-        model.find(query, (error, data) => {
-            if (error) {
-                console.log("Something went wrong", error.name);
-                reject(error);
-            }
-            else {
-                console.log(`${data.length} model/s exist.`);
-                resolve(data);
-            }
-        });
-    })
-};
-
-//search with given query(where statement) then do the given update (set statement)
-const findAndUpdate = (query, update) => {
-    return new Promise((resolve, reject) => {
-        const options = { new: true };
-        model.findOneAndUpdate(query, update, options, (error, data) => {
-            if (error) {
-                console.log("Something went wrong", error.name);
-                reject(error);
-            }
-            else {
-                console.log(`Updated model as follows: ${data}`);
-                resolve(data);
-            }
-        });
-    })
-};
-
-const removeOneItem = (query, done) => {
-    return new Promise((resolve, reject) => {
-        model.findOneAndRemove(query, (error, data) => {
-            if (error) {
-                console.log("Something went wrong", error.name);
-                reject(error);
-            } else {
-                console.log(`Item is removed!`);
-                resolve(data);
-            }
-        });
-    })
-};
-
-//return statements may be altered
-const removeAllMatches = (query) => {
-    return new Promise((resolve, reject) => {
-        model.deleteMany(query, (error, data) => {
-            if (error) {
-                console.log("Something went wrong", error.name);
-                reject(error);
-            }
-            else {
-                console.log(`${data.deletedCount} item/s is/are removed!`);
-                resolve(data);
-            }
-        });
-    })
-};
-
-const controller = {
-    createAndSavemodel: createAndSaveItem,
-    findItem: findItem,
-    findAndUpdatemodel: findAndUpdate,
-    removeOnemodel: removeOneItem,
-    removeAllMatchedmodels: removeAllMatches,
-};
-
-module.exports = controller;

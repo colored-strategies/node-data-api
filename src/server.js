@@ -7,7 +7,6 @@ var cors = require("cors");
 require("dotenv").config();
 
 const logger = require("./utils/logger");
-const productModel = require("./product/product.model");
 const productSeeder = require("./product/product.seeder");
 
 mongoose.Promise = global.Promise;
@@ -35,40 +34,8 @@ app.get("/", (req, res) => {
     res.send("Welcome my friend...");
 });
 
-//#region datatable/product
-app.get("/datatables/product", async (req, res) => {
-    productForDatatable(req.query, res);
-});
 
-app.post("/datatables/product", async (req, res) => {
-    productForDatatable(req.body, res);
-});
-
-productForDatatable = async (params, res) => {
-    productModel
-        .dataTables({
-            limit: params.length,
-            skip: params.start,
-            order: params.order,
-            columns: params.columns,
-            search: {
-                ...params.search,
-                fields: ["Name", "Description", "Category", "Tag"],
-            },
-        })
-        .then(function (table) {
-            res.json({
-                draw: params.draw,
-                data: table.data,
-                recordsFiltered: table.total,
-                recordsTotal: table.total,
-            });
-        })
-        .catch((error) => {
-            console.log("error.... ", error);
-        });
-};
-//#endregion datatalbe/product
+require('./routes/datatable')(app);
 
 //#region seeder
 
