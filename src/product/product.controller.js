@@ -43,12 +43,17 @@ module.exports = {
   // POST /api/products/create
   create: async (req, res) => {
     let newModel = new Model({
-      name: req.body.name,
-      email: req.body.email,
-      gender: req.body.gender,
-      active: true,
+      Name: req.body.Name,
+      Description: req.body.Description,
+      Sales: req.body.Sales,
+      Stock: req.body.Stock,
+      Category: req.body.Category,
+      Tag: req.body.Tag,
+      Check: req.body.Check,
+      ImageP: req.body.ImageP,
+      Thumb: req.body.Thumb,
+      Date: req.body.Date,
     });
-
     let product = await newModel.save();
     res.send({ message: "Model created successfully!", data: product });
   },
@@ -56,7 +61,7 @@ module.exports = {
   // Update Model w.r.t id from mongodb
   // PUT /api/products/update/:id
   update: async (req, res) => {
-    let product = await Model.findByIdAndUpdate(req.params.id, {
+    let product = await Model.findByIdAndUpdate(req.body.id, {
       $set: req.body,
     });
     res.send({ message: "Model updated successfully!", data: product });
@@ -65,7 +70,8 @@ module.exports = {
   // Delete Model w.r.t id from mongodb
   // DELETE /api/products/delete/:id
   delete: async (req, res) => {
-    await Model.findByIdAndRemove(req.params.id);
+    //await Model.findByIdAndRemove(req.body.id);
+    await Model.deleteMany({ _id: [...req.body.ids] });
     res.send("Model deleted successfully!");
   },
 };

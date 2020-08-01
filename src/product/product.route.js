@@ -4,15 +4,7 @@ module.exports = function (app) {
   const ProductController = require("../product/product.controller");
 
   app.get(`${urlPrefix}`, ProductController.getAllForDatatable);
-  app.post(`${urlPrefix}`, ProductController.getAllForDatatable);
-  app.put(`${urlPrefix}/:id`, ProductController.getAllForDatatable);
-  app.delete(`${urlPrefix}/:id`, ProductController.getAllForDatatable);
-
-  // app.get('/api/users/:id', UserController.get);
-
-  // app.post('/api/users', UserController.create);
-
-  // app.put('/api/users/:id', UserController.update);
-
-  // app.delete('/api/users/:id', UserController.delete);
+  app.post(`${urlPrefix}/add`, ProductController.create);
+  app.put(`${urlPrefix}/update`, ProductController.update);
+  app.delete(`${urlPrefix}/delete`, ProductController.delete);
 };
