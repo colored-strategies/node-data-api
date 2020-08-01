@@ -34,12 +34,12 @@ app.get("/", (req, res) => {
   res.send("Welcome my friend...");
 });
 
-require("./routes/datatable")(app);
+require("./product/product.route")(app);
 
 //#region seeder
 
 //! TODO : seeder pathlerini bu dosyanın dışına taşı
-app.get("/seeder/product", async (req, res) => {
+app.get("/products/seeder", async (req, res) => {
   productSeeder.seed();
   res.send("its all good man");
 });
