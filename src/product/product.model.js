@@ -4,8 +4,7 @@ const dataTables = require("../utils/dataTablePlugin");
 const productImgRoot = "/images/products";
 
 const schema = new mongoose.Schema({
-  //remove required
-  Name: { type: String, required: true },
+  Name: { type: String },
   Description: { type: String },
   Sales: { type: Number },
   Stock: { type: Number },
