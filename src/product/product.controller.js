@@ -26,16 +26,16 @@ module.exports = {
         });
     },
 
-    // Get all users from mongodb
-    // GET /api/users
+    // Get all products from mongodb
+    // GET /api/products
     getAll: async (req, res) => {
-        let users = await Model.find({})
-        res.send(users)
+        let products = await Model.find({})
+        res.send(products)
     },
 
 
-    // Get users w.r.t id from mongodb
-    // GET /api/users/:id
+    // Get products w.r.t id from mongodb
+    // GET /api/products/:id
     get: async (req, res) => {
         let user = await Model.findById(req.params.id)
         res.send(user);
@@ -43,7 +43,7 @@ module.exports = {
 
 
     // Create new Model in mongodb
-    // POST /api/users/create
+    // POST /api/products/create
     create: async (req, res) => {
         let newModel = new Model(
             {
@@ -60,7 +60,7 @@ module.exports = {
 
 
     // Update Model w.r.t id from mongodb
-    // PUT /api/users/update/:id
+    // PUT /api/products/update/:id
     update: async (req, res) => {
         let user = await Model.findByIdAndUpdate(req.params.id, { $set: req.body })
         res.send({ message: 'Model updated successfully!', data: user });
@@ -68,7 +68,7 @@ module.exports = {
 
 
     // Delete Model w.r.t id from mongodb
-    // DELETE /api/users/delete/:id
+    // DELETE /api/products/delete/:id
     delete: async (req, res) => {
         await Model.findByIdAndRemove(req.params.id)
         res.send('Model deleted successfully!');
