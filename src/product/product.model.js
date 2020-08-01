@@ -15,6 +15,16 @@ const schema = new mongoose.Schema({
     createdDate: { type: Date, default: Date.now }
 });
 
+schema.method('toClient', function() {
+    var obj = this.toObject();
+
+    //Rename fields
+    obj.id = obj._id;
+    delete obj._id;
+
+    return obj;
+});
+
 schema.plugin(dataTables);
 
 module.exports = mongoose.model("Product", schema);
