@@ -14,7 +14,7 @@ This API uses two environment variables. **MONGO_URI** used as a MongoDB connect
 Add **MONGO_URI** & **API_URL** variables to your **.env** file by updating with your own keys.    
     
 **MONGO_URI**="mongodb://username:password@localhost/testDB?retryWrites=true&w=majority"   
-**API_URL**="https://node-api.example.com"    
+**API_URL**="http://localhost"    
 
 ## API Routing
 
