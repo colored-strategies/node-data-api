@@ -1,4 +1,5 @@
 const Model = require("./product.model");
+const initialData = require("./_initial.data.json");
 
 module.exports = {
   getAllForDatatable: async (req, res) => {
@@ -73,5 +74,28 @@ module.exports = {
     //await Model.findByIdAndRemove(req.body.id);
     await Model.deleteMany({ _id: [...req.body.ids] });
     res.send("Model deleted successfully!");
+  },
+
+  //Seed with the initial data
+  seed: async (req, res) => {
+    try {
+      //clear previous data from the database
+      await Model.collection.drop();
+    } catch (error) {}
+
+    await Model.create(initialData, (error, data) => {
+      if (error) {
+        console.log("Something went wrong", error.name);
+        res.send(
+          "Something went wrong!!! Please, check server logs for the details"
+        );
+      } else {
+        res.send(
+          `Nicely saved ${data.length} types of model, at ${new Date(
+            Date.now()
+          )}`
+        );
+      }
+    });
   },
 };

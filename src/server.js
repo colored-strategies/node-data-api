@@ -7,7 +7,6 @@ var cors = require("cors");
 require("dotenv").config();
 
 const logger = require("./utils/logger");
-const productSeeder = require("./product/product.seeder");
 
 mongoose.Promise = global.Promise;
 
@@ -34,17 +33,8 @@ app.get("/", (req, res) => {
   res.send("Welcome my friend...");
 });
 
+//get product related routing information
 require("./product/product.route")(app);
-
-//#region seeder
-
-//! TODO : seeder pathlerini bu dosyanın dışına taşı
-app.get("/products/seeder", async (req, res) => {
-  productSeeder.seed();
-  res.send("its all good man");
-});
-
-//#endregion seeder
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
