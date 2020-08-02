@@ -4,8 +4,8 @@ This API serves as a gateway for any project that uses CRUD operations over Mong
 
 ## Running the API
 
-API serves over http://localhost:3000/ by default. Following command starts up the server.
-<code>npm run start</code>
+API serves over http://localhost:3000/ by default. Following commands starts up the server.
+<code>npm run start</code> **OR** <code>yarn start</code>
 
 ## API Configuration
 
