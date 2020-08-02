@@ -13,15 +13,15 @@ This API uses two environment variables. **MONGO_URI** used as a MongoDB connect
 
 Add **MONGO_URI** & **API_URL** variables to your **.env** file by updating with your own keys.    
     
-**MONGO_URI**="mongodb://**username**:**pass**@mongo.coloredstrategies.com/goyaMongo?retryWrites=true&w=majority"   
-**API_URL**="https://node-api.coloredstrategies.com"    
+**MONGO_URI**="mongodb://username:password@localhost/testDB?retryWrites=true&w=majority"   
+**API_URL**="https://node-api.example.com"    
 
 ## API Routing
 
 API serves over GET, POST, PUT, DELETE methods. Additional routing may be added as desired.
 
-**GET /products/seeder -->** Seed with the initial data   
-**GET /products -->** Return all the products   
-**POST /products/add -->** Create new product   
-**PUT /products/update -->** Update given product's data    
-**DELETE /products/delete -->** Delete the product/s with given id/s    
+    GET   /products/seeder --> Seed with the initial data   
+    GET   /products --> Return all the products   
+    POST   /products/add --> Create new product   
+    PUT   /products/update --> Update given product's data    
+    DELETE   /products/delete --> Delete the product/s within given id array 
