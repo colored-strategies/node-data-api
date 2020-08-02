@@ -2,13 +2,8 @@ module.exports = function (app) {
   const urlPrefix = "/products";
 
   const ProductController = require("./product.controller");
-  const ProductSeeder = require("./product.seeder");
 
   //Seed with the initial data
-  /*app.get(`${urlPrefix}/seeder`, async (req, res) => {
-    ProductSeeder.seed();
-    res.send("its all good man");
-  });*/
   app.get(`${urlPrefix}/seeder`, ProductController.seed);
 
   //Return all the products
