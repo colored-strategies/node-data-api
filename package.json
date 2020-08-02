@@ -1,7 +1,7 @@
 {
   "name": "data-api",
   "version": "1.0.0",
-  "description": "coming...",
+  "description": "This API serves as a gateway for any project that uses CRUD operations over MongoDB. Datatables server-side requests and responses used for our testing purpose.",
   "main": "src/server.js",
   "scripts": {
     "start": "nodemon ./src/server.js"

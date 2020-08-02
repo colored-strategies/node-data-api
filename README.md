@@ -2,6 +2,11 @@
 
 This API serves as a gateway for any project that uses CRUD operations over MongoDB. Datatables server-side requests and responses used for our testing purpose.
 
+## Running the API
+
+API serves over http://localhost:3000/ by default. Following command starts up the server.
+<code>npm run start</code>
+
 ## API Configuration
 
 This API uses two environment variables. **MONGO_URI** used as a MongoDB connection string. **API_URL** used as a base for product thumb and full-size images.
