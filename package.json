@@ -1,7 +1,7 @@
 {
   "name": "data-api",
   "version": "1.0.0",
-  "description": "coming...",
+  "description": "This API serves as a gateway for any project that uses CRUD operations over MongoDB. Datatables server-side requests and responses used for our testing purpose.",
   "main": "src/server.js",
   "scripts": {
     "start": "nodemon ./src/server.js"
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/ColoredStrategies/node-data-api#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.25"

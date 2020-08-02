@@ -1,27 +1,41 @@
 const express = require("express");
-const app = express();
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+var cors = require("cors");
 
 //to read .env files
 require("dotenv").config();
 
-const seed = require("./seed").preview;
+const logger = require("./utils/logger");
 
+mongoose.Promise = global.Promise;
+
+const app = express();
+app.use(cors());
 app.use(logger);
-//app.use(seed);
+app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
-app.get("/", function (req, res) {
-    res.send("Welcome my friend...");
+const connect = mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  //if you don't add this it will use MongoDB driver's deprecated
+  //findOneAndUpdate instead of Mongoose's findOneAndUpdate
+  useFindAndModify: false,
 });
 
-app.get("/api/seed", function (req, res) {
-    res.send(seed);
+app.get("/", (req, res) => {
+  res.send("Welcome my friend...");
 });
 
-function logger(req, res, next) {
-    console.log(req.method, req.path, "-", req.ip);
-    next();
-}
+//get product related routing information
+require("./product/product.route")(app);
 
-const listener = app.listen(process.env.PORT || 3000, function () {
-    console.log("Your app is listening on port " + listener.address().port);
+const listener = app.listen(process.env.PORT || 3000, () => {
+  console.log("Your app is listening on port " + listener.address().port);
 });
