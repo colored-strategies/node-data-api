@@ -20,8 +20,8 @@ Add **MONGO_URI** & **API_URL** variables to your **.env** file by updating with
 
 API serves over GET, POST, PUT, DELETE methods. Additional routing may be added as desired.
 
-    GET         /products/seeder --> Seed with the initial data   
-    GET         /products --> Return all the products   
-    POST        /products/add --> Create new product   
-    PUT         /products/update --> Update given product's data    
-    DELETE      /products/delete --> Delete the product/s within given id array 
+    GET         /products/seeder        Seed with the initial data   
+    GET         /products               Return all the products   
+    POST        /products/add           Create new product   
+    PUT         /products/update        Update given product's data    
+    DELETE      /products/delete        Delete the product/s within given id array 
