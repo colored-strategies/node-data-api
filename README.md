@@ -11,10 +11,10 @@ API serves over http://localhost:3000/ by default. Following commands starts up 
 
 This API uses two environment variables. **MONGO_URI** used as a MongoDB connection string. **API_URL** used as a base for product thumb and full-size images.    
 
-Add **MONGO_URI** & **API_URL** variables to your **.env** file with the following keys.    
+Add **MONGO_URI** & **API_URL** variables to your **.env** file by updating with your own keys.    
     
-Ex: **MONGO_URI**="mongodb://**username**:**pass**@mongo.coloredstrategies.com/goyaMongo?retryWrites=true&w=majority"   
-Ex: **API_URL**="https://node-api.coloredstrategies.com"    
+**MONGO_URI**="mongodb://**username**:**pass**@mongo.coloredstrategies.com/goyaMongo?retryWrites=true&w=majority"   
+**API_URL**="https://node-api.coloredstrategies.com"    
 
 ## API Routing
 
