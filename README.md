@@ -1,13 +1,21 @@
 # Node Data API
 
-Node.js data api
+This API serves as a gateway for any project that uses CRUD operations over MongoDB. Datatables server-side requests and responses used for our testing purpose.
 
-Add **MONGO_URI** variable to your **.env** file with the following key.  
-Ex: "mongodb://**username**:**pass**@mongo.coloredstrategies.com/goyaMongo?retryWrites=true&w=majority"
+## API Configuration
 
-## API Params
+This API uses two environment variables. **MONGO_URI** used as a MongoDB connection string. **API_URL** used as a base for product thumb and full-size images.
 
-API serves over GET methods. Additional routing may be added as desired.
+Add **MONGO_URI** & **API_URL** variables to your **.env** file with the following keys.
+Ex: MONGO_URI="mongodb://**username**:**pass**@mongo.coloredstrategies.com/goyaMongo?retryWrites=true&w=majority"
+Ex: API_URL="https://node-api.coloredstrategies.com"
 
-**/api/data/findBread** **-->** return all the breads  
-**/api/data/\***?draw=3&start=1&length=1\* **-->** return with given limits
+## API Routing
+
+API serves over GET, POST, PUT, DELETE methods. Additional routing may be added as desired.
+
+**GET /products/seeder -->** Seed with the initial data
+**GET /products -->** Return all the products
+**POST /products/add -->** Create new product
+**PUT /products/update -->** Update given product's data
+**DELETE /products/delete -->** Delete the product/s with given id/s
