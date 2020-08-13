@@ -10,7 +10,8 @@ module.exports = {
       columns: req.query.columns,
       search: {
         ...req.query.search,
-        fields: ["Name", "Description", "Category", "Tag"],
+        fields: ["Name"],
+        //fields: ["Name", "Description", "Category", "Tag"],
       },
     })
       .then(function (table) {
