@@ -10,7 +10,8 @@ module.exports = {
       columns: req.query.columns,
       search: {
         ...req.query.search,
-        fields: ["Name", "Description", "Category", "Tag"],
+        fields: ["Name"],
+        //fields: ["Name", "Description", "Category", "Tag"],
       },
     })
       .then(function (table) {
@@ -55,25 +56,27 @@ module.exports = {
       Thumb: req.body.Thumb,
       Date: req.body.Date,
     });
-    let product = await newModel.save();
-    res.send({ message: "Model created successfully!", data: product });
+    // let product = await newModel.save();
+    // res.send({ message: "Model created successfully!", data: product });
+    res.send({ message: "Model created successfully!", data: req.body });
   },
 
   // Update Model w.r.t id from mongodb
   // PUT /api/products/update/:id
   update: async (req, res) => {
-    let product = await Model.findByIdAndUpdate(req.body.id, {
-      $set: req.body,
-    });
-    res.send({ message: "Model updated successfully!", data: product });
+    // let product = await Model.findByIdAndUpdate(req.body.id, {
+    //   $set: req.body,
+    // });
+    // res.send({ message: "Model updated successfully!", data: product });
+    res.send({ message: "Model updated successfully!", data: req.body });
   },
 
   // Delete Model w.r.t id from mongodb
   // DELETE /api/products/delete/:id
   delete: async (req, res) => {
     //await Model.findByIdAndRemove(req.body.id);
-    await Model.deleteMany({ _id: [...req.body.ids] });
-    res.send("Model deleted successfully!");
+    // await Model.deleteMany({ _id: [...req.body.ids] });
+    res.send({ message: "Model updated successfully!", data: true });
   },
 
   //Seed with the initial data
